@@ -4,7 +4,10 @@ const uniqueValidator = require('mongoose-unique-validator');   // Appel de mong
 
 const userSchema = mongoose.Schema({            // Nouveau schema email + password require et  unique pour l'addresse email
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    name: { type: String, required: true },
+    firstName: { type: String, required: true }
+
 });
 
 

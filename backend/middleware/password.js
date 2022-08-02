@@ -4,7 +4,7 @@ const passwordValid = require('password-validator');
 const passwordSchema = new passwordValid();
 // propriétés du schema
 passwordSchema
-.is().min(8)        // minimum 8
+.is().min(6)        // minimum 8
 .is().max(50)       // max 50
 .has().digits(2)    // 2 chiffres mini
 .has().not().spaces()   // pas d'espace

@@ -7,10 +7,13 @@ require('dotenv').config();
 
 exports.signup = (req, res, next) => {      // logique de la route signup avant exportation dans le routeur
     bcrypt.hash(req.body.password, 10)      // utilisation du plugin bcrypt (créer un hash du password (utilisation de l'algo 15 fois = salage du mot de passe))
-    .then(hash => {                         // recupération du hash pour :
+    .then(hash => {  
+        delete req.body.passwordCheck;                       // recupération du hash pour :
         const user = new User({             // nouvelle instance du schema user
             email: req.body.email,          // séléction du champ "email" dans le body de la requete
-            password: hash                  // Séléction du hash ( le password n'est pas stocké)
+            password: hash,
+            name: req.body.name,
+            firstName: req.body.firstName                                // Séléction du hash ( le password n'est pas stocké)
         });
         user.save()
             .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))        // Status 201 = création de ressource

@@ -1,0 +1,28 @@
+.MenuAuth{
+    display: flex;
+    justify-content: center;
+}
+
+.MenuAuth ul {
+    display: flex;
+    gap: 15px;
+    
+
+}
+
+.MenuAuth li {
+    list-style-type: none;
+    padding: 50px;
+    height: 20px;
+    background-color: bisque;
+    border-radius: 35%;
+}
+a {
+    text-decoration: none;
+    color:black;
+}
+
+.activeLink{
+    color: aqua;
+    font-weight: bold;
+}

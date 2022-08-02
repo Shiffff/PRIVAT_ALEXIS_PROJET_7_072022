@@ -1,0 +1,9 @@
+img {
+    height: 80px;
+}
+
+.nav-container{
+    display: flex;
+    border-bottom: 1px solid black;
+    justify-content: space-between; 
+}
