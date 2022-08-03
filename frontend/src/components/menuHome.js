@@ -7,9 +7,6 @@ const removeLocalStorage = () => {
     localStorage.clear();   
 }
 
-
-
-
 export default function menuHome() {
     return (
         <nav>
