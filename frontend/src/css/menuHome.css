@@ -7,3 +7,6 @@ img {
     border-bottom: 1px solid black;
     justify-content: space-between; 
 }
+.activeLinkHome{
+    border: 2px solid red;
+}

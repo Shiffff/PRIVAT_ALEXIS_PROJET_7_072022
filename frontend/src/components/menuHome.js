@@ -1,26 +1,38 @@
-import React from 'react';
-import { NavLink } from "react-router-dom"
-
-
+import { NavLink } from "react-router-dom";
 
 const removeLocalStorage = () => {
     localStorage.clear();   
 }
+    const MenuHome =  () => {
 
-export default function menuHome() {
+
     return (
         <nav>
             <div className='nav-container'>
                 <div className='logo'>
-                    <NavLink exact to="/">
+                    <NavLink  to="/">
                         <div className='logo'>
                             <img src="../icon-left-font-monochrome-black.png" alt='icon'></img>
                         </div>
                     </NavLink>
                 </div>
-                    <h3>settings</h3>
+                <div className='Accueil'>
+                    <NavLink  to="/" className={({ isActive }) => (isActive ? "activeLinkHome" : undefined) }>
+                        <div className='Accueil'>
+                            <img src="../logout.svg" alt='icon'></img>
+                        </div>
+                    </NavLink>
+                </div>
+                <div className='Profil'>
+                <NavLink  to="/profil" className={({ isActive }) => (isActive ? "activeLinkHome" : undefined) }>
+                <div className='logo'>
+                            <img src="../logout.svg" alt='icon'></img>
+                        </div>
+                    </NavLink>
+                </div>
+                    <div className='userName'>Bienvenue {}</div>
                     <div className='logout' onClick={removeLocalStorage}>
-                    <NavLink exact to="/signIn">
+                    <NavLink  to="/connexion">
                     <img  src="../logout.svg" alt='icon logout'></img>
                     </NavLink>
                     </div>
@@ -29,4 +41,4 @@ export default function menuHome() {
     )
 }
 
-
+export default MenuHome;

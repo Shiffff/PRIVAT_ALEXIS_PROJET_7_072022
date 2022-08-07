@@ -48,5 +48,15 @@ exports.login = (req, res, next) => {
         }
     })
     .catch(error => res.status(500).json({ error }));
-
 };
+
+
+
+exports.getOneUser = (req, res, next) => {                  //get une seul sauce éxistantes
+    User.findOne({ _id: req.auth.userId}) 
+    .select('-password')                       // find dans la base de données le schema qui correspond a l'id qui ce trouve dans la requete
+    .then(User => {
+        res.status(200).json(User)})                 // renvoie en format json la reponse (all schema) qui sera traduite côté front
+    .catch(error => res.status(400).json({ error }));
+  };
+  

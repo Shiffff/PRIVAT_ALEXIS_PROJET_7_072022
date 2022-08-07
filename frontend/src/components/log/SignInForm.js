@@ -1,5 +1,4 @@
 import { useState } from 'react' ;
-import MenuAuth from "../menuAuth";
 const urlLoginUser = `http://localhost:3000/api/auth/login`; 
 
 
@@ -63,8 +62,6 @@ export default function SignUpForm() {
             sendNewUser()
         }
     return (
-        <>
-        <MenuAuth />
         <div className="CenterForm">
         <form onSubmit={(e) => handleCheckSubmit(e)}>
                 <label htmlFor="email">Email *</label>
@@ -86,6 +83,5 @@ export default function SignUpForm() {
                 <div className="errorMessageFetch"></div>
             </form>
         </div>
-        </>
         )
 };

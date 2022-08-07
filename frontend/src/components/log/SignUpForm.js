@@ -1,5 +1,4 @@
 import { useState } from "react";
-import MenuAuth from "../menuAuth";
 const urlNewUser = `http://localhost:3000/api/auth/signup`; // création d'une constante avec le lien du produit grace a l'ID récupéré
 export default function SignInForm() {
     const [user, setUser] = useState({
@@ -125,8 +124,6 @@ export default function SignInForm() {
         }
     }
     return (
-        <>
-        <MenuAuth />
         <div className="CenterForm">
             <form onSubmit={(e) => handleUsersSubmit(e)}>
                 <label htmlFor="name">Nom *</label>
@@ -164,6 +161,5 @@ export default function SignInForm() {
                 <div className="errorMessageFetch"></div>
             </form>
         </div>
-        </>
         )
 };
