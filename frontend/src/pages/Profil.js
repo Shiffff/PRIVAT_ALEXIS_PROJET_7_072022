@@ -1,11 +1,9 @@
 import React from 'react';
-import MenuHome from "../components/menuHome";
 
+const Profil = () => {
 
-const profil = () => {
     return(
         <>
-        <MenuHome />
         <div className="profil">
         <h1> Profil de {}</h1>
         <div>test</div>
@@ -14,4 +12,4 @@ const profil = () => {
     )
 };
 
-export default profil;
+export default Profil;

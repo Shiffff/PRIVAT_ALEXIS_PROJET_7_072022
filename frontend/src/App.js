@@ -9,15 +9,12 @@ import Profil from './pages/Profil';
 import ConnexionPage from './components/log';
 import { useEffect, useState } from 'react';
 import { UidContext } from './components/AppContext';
+import MenuHome from "./components/menuHome";
 const urlUser = `http://localhost:3000/api/auth/user`;
 
 
-
-
-
-
 function App() {
-  const [uid, setUid] = useState(null);
+  const [uid, setUid] = useState({});
 
   useEffect(() => {
     const fetchToken = async() => {
@@ -36,14 +33,13 @@ function App() {
   };
   fetchToken();
   }, []);
-  
 
 
   return(
     <div className='app'>
       <UidContext.Provider value={uid}>
       <Routes>
-          <Route element={<AuthGuard><Layout  /></AuthGuard>}>
+          <Route element={<AuthGuard><MenuHome /><Layout  /></AuthGuard>}>
             <Route path="/" element={<Home />}/>
             <Route path="/profil" element={<Profil/> }/>
             <Route path="*" element={<Error/>} /></Route>
@@ -54,6 +50,8 @@ function App() {
   )
 }
 
-export default App;
 
+
+
+export default App;
 

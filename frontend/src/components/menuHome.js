@@ -1,11 +1,12 @@
+import { useContext } from "react";
+import { UidContext } from "./AppContext";
 import { NavLink } from "react-router-dom";
 
 const removeLocalStorage = () => {
     localStorage.clear();   
 }
     const MenuHome =  () => {
-
-
+        const uid = useContext(UidContext)
     return (
         <nav>
             <div className='nav-container'>
@@ -30,7 +31,7 @@ const removeLocalStorage = () => {
                         </div>
                     </NavLink>
                 </div>
-                    <div className='userName'>Bienvenue {}</div>
+                    <div className='userName'>Bienvenue {uid.name}</div>
                     <div className='logout' onClick={removeLocalStorage}>
                     <NavLink  to="/connexion">
                     <img  src="../logout.svg" alt='icon logout'></img>
