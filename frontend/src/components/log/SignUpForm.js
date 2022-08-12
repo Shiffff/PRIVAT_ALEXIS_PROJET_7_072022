@@ -1,5 +1,5 @@
 import { useState } from "react";
-const urlNewUser = `http://localhost:3000/api/auth/signup`; // création d'une constante avec le lien du produit grace a l'ID récupéré
+const urlNewUser = `http://localhost:3000/api/user/signup`; // création d'une constante avec le lien du produit grace a l'ID récupéré
 export default function SignInForm() {
     const [user, setUser] = useState({
         name:'',
@@ -61,14 +61,15 @@ export default function SignInForm() {
     var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})");
     var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
     if(strongRegex.test(user.password) && user.password.length > 3) {
-        document.querySelector('.errorMessagePassword').innerHTML = "Mot de passe robuste"
+        document.querySelector('.errorMessagePassword').innerHTML = "<span style='color:green'>Mot de passe robuste</span>"
+
         return true
     } else if(mediumRegex.test(user.password)&& user.password.length > 3) {
-        document.querySelector('.errorMessagePassword').innerHTML = "Mot de passe moyen"
+        document.querySelector('.errorMessagePassword').innerHTML = "<span style='color:orange'>Mot de passe moyen</span>"
         return true
     } else if(user.password.length < 1){document.querySelector('.errorMessagePassword').innerHTML = ""
     return false
-    }else{document.querySelector('.errorMessagePassword').innerHTML = "Mot de passe trop faible"
+    }else{document.querySelector('.errorMessagePassword').innerHTML = "<span style='color:red'>Mot de passe trop faible</span>"
     return false  
     }
     }
@@ -101,7 +102,7 @@ export default function SignInForm() {
               fetch(urlNewUser, options)        // récupération de la reponse de l'api (ID commande généré)
               .then((res) => {
                 if(res.status < 400){
-                    document.querySelector('.errorMessageFetch').innerHTML = "Inscription validée, veuillez vous connecter"
+                    document.querySelector('.errorMessageFetch').innerHTML = "<span style='color:green'>Inscription validée </br> veuillez vous connecter</span>"
                     
                 }else{
                     document.querySelector('.errorMessageFetch').innerHTML = "Email invalide"
@@ -128,35 +129,35 @@ export default function SignInForm() {
             <form onSubmit={(e) => handleUsersSubmit(e)}>
                 <label htmlFor="name">Nom *</label>
                 <br/>
-                <input type="text" name="name" id="name" value={user.name} onChange={(e) => handleChange(e)} />
+                <input placeholder="Jean" type="text" name="name" id="name" value={user.name} onChange={(e) => handleChange(e)} />
                 <br/>
-                <div className="errorMessageName"></div>
+                <div className="errorMessageName errormsg"></div>
                 <br/>
                 <label htmlFor="firstName">Prénom *</label>
                 <br/>
-                <input type="text" name="firstName" id="firstName" value={user.firstName} onChange={(e) => handleChange(e)}/>
+                <input placeholder="Dupont" type="text" name="firstName" id="firstName" value={user.firstName} onChange={(e) => handleChange(e)}/>
                 <br/>
-                <div className="errorMessageFirstName"></div>
+                <div className="errorMessageFirstName errormsg"></div>
                 <br/>
                 <label htmlFor="email">Email *</label>
                 <br/>
-                <input type="text" name="email" id="email" value={user.email} onChange={(e) => handleChange(e)}/>
+                <input placeholder="jean.dupont@exemple.fr" type="text" name="email" id="email" value={user.email} onChange={(e) => handleChange(e)}/>
                 <br/>
-                <div className="errorMessageEmail"></div>
+                <div className="errorMessageEmail errormsg"></div>
                 <br/>
                 <label htmlFor="text">Mot de passe *</label>
                 <br/>
-                <input type="password" name="password" autoComplete="off" id="password" value={user.password} onChange={(e) => handleChange(e)}/>
+                <input placeholder="" type="password" name="password" autoComplete="off" id="password" value={user.password} onChange={(e) => handleChange(e)}/>
                 <br/>
-                <div className="errorMessagePassword"></div>
+                <div className="errorMessagePassword "></div>
                 <br/>
                 <label htmlFor="text">Confirmation du mot de passe *</label>
                 <br/>
-                <input type="password" name="passwordCheck" autoComplete="off" id="passwordCheck" value={user.passwordCheck} onChange={(e) => handleChange(e)} />
+                <input placeholder="" type="password" name="passwordCheck" autoComplete="off" id="passwordCheck" value={user.passwordCheck} onChange={(e) => handleChange(e)} />
                 <br/>
-                <div className="errorMessagePasswordCheck"></div>
+                <div className="errorMessagePasswordCheck errormsg"></div>
                 <br/>
-                <input type="submit" value="Se connecter" />
+                <input type="submit" className="submitLogin" value="Se connecter" />
                 <br/>
                 <div className="errorMessageFetch"></div>
             </form>

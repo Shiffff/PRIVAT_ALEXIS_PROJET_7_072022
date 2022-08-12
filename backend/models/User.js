@@ -7,10 +7,14 @@ const userSchema = mongoose.Schema({            // Nouveau schema email + passwo
     password: { type: String, required: true },
     name: { type: String, required: true },
     firstName: { type: String, required: true },
-    imageUrl: { type: String}
-    
-
-});
+    imageUrl: { type: String, default: "http://localhost:3000/images/user_default.jpg"},
+    bio:{type: String, default: "Ecrivez votre bio ici"},
+    followers:{type:[String]},
+    following:{type:[String]},
+    likes:{ type:[String]},
+},
+{timestamps: true,}
+);
 
 
 userSchema.plugin(uniqueValidator);

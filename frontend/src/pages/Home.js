@@ -1,16 +1,14 @@
-import { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { UidContext } from "../components/AppContext";
+import { useSelector } from 'react-redux';
 
 
 export default function Home(){
-    const uid = useContext(UidContext)
+    const userData = useSelector((state) => state.user.user)
 
     return(
         <>
         <div className="home">
         <h1>Home</h1>
-        <div>Welcome{uid.name}</div>
+        <div>Welcome{userData.firstName}</div>
         </div>
         </>
     )

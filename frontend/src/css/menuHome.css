@@ -1,12 +1,26 @@
-img {
-    height: 80px;
-}
-
 .nav-container{
     display: flex;
-    border-bottom: 1px solid black;
     justify-content: space-between; 
+    height: 60px;
+    border-bottom: 1px solid rgb(0, 0, 0);
 }
-.activeLinkHome{
-    border: 2px solid red;
+
+.logosIcones{
+    height: 45px;
+    width: 45px;
+    padding: 8px;
+    margin: 0px;
+    position: relative;
+
+}
+.activeLinkHome::after{
+    content: "";
+    color: rgb(255, 0, 0);
+    background: red;
+    position: absolute;
+    top:58px;
+    border-radius: 60px;
+    height: 5px;
+    width: 60px;
+
 }

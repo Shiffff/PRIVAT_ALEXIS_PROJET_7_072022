@@ -10,10 +10,17 @@ import ConnexionPage from './components/log';
 import { useEffect, useState } from 'react';
 import { UidContext } from './components/AppContext';
 import MenuHome from "./components/menuHome";
-const urlUser = `http://localhost:3000/api/auth/user`;
+import { useDispatch } from 'react-redux';
+import { setUserData } from './feature/user.slice';
+import { setUsersData } from './feature/users.slice';
+const urlUser = `http://localhost:3000/api/user/auth`;
+const urlUsers = `http://localhost:3000/api/user/users`;
+
+
 
 
 function App() {
+  const dispatch = useDispatch()
   const [uid, setUid] = useState({});
 
   useEffect(() => {
@@ -26,14 +33,29 @@ function App() {
       }
     })
     .then((res) =>{
-     setUid(res.data)
-    console.log(res)
+      dispatch(setUserData(res.data));
+      setUid(res.data)
     })
     .catch((err) => console.log('veillez vous connécté'))
   };
-  fetchToken();
-  }, []);
+  const getallusers = async() => {
+    await axios ({
+method: "get",
+url: urlUsers,
+})
+.then((res) =>{
+dispatch(setUsersData(res.data));
+})
+.catch((err) => console.log('err'))
+};
 
+
+  fetchToken();
+  getallusers();
+
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return(
     <div className='app'>

@@ -1,5 +1,5 @@
 import { useState } from 'react' ;
-const urlLoginUser = `http://localhost:3000/api/auth/login`; 
+const urlLoginUser = `http://localhost:3000/api/user/login`; 
 
 
 
@@ -43,7 +43,6 @@ export default function SignUpForm() {
                   fetch(urlLoginUser, options)        // récupération de la reponse de l'api (ID commande généré)
                   .then((res) => {
                     if(res.status < 400){
-                        document.querySelector('.errorMessageFetch').innerHTML = "OK"
                         res.json().then((data) => {console.log('data',data)
                         window.localStorage.setItem('token', data.token);
                         window.location = "/";
@@ -66,21 +65,19 @@ export default function SignUpForm() {
         <form onSubmit={(e) => handleCheckSubmit(e)}>
                 <label htmlFor="email">Email *</label>
                 <br/>
-                <input type="text" name="email" id="email" value={user.email} onChange={(e) => handleChange(e)}/>
+                <input placeholder="jean.dupont@exemple.fr" type="text" name="email" id="email" value={user.email} onChange={(e) => handleChange(e)}/>
                 <br/>
-                <div className="errorMessageEmail"></div>
-                <br/>
-                <div className="errorMessageEmail"></div>
+                <div className="errorMessageEmail errormsg"></div>
                 <br/>
                 <label htmlFor="text">Mot de passe *</label>
                 <br/>
                 <input type="password" name="password" id="password" autoComplete="off" value={user.password} onChange={(e) => handleChange(e)} />
                 <br/>
-                <div className="errorMessagePassword"></div>
+                <div className="errorMessagePassword errormsg"></div>
                 <br/>
-                <input type="submit" value="Se connecter" />
+                <input type="submit" className="submitLogin" value="Se connecter" />
                 <br/>
-                <div className="errorMessageFetch"></div>
+                <div className="errorMessageFetch errormsg"></div>
             </form>
         </div>
         )

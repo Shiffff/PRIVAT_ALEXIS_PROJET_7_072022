@@ -1,3 +1,85 @@
-.active-btn{
-    border-bottom: 1px solid red;
+.picLog{
+    width: 210px;
+}
+
+.fullLoginPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 320px;
+    background-color: lightblue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.form-container ul {
+    background-color: rgb(237, 237, 237);
+    list-style-type: none;
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    border-radius: 10px;
+    margin-bottom: 35px;
+}
+
+
+.CenterForm{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    width: 300px;
+    background-color: rgb(237, 237, 237);
+    border-radius: 10px;
+    font-size: 13px;
+    padding: 25px 0px 25px 0px;
+}
+
+.submitLogin {
+    background-color: lightcoral;
+    border-radius: 12px;
+    border: 0;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    text-align: center;
+    width: 100%;
+  }
+
+  
+  .errormsg{
+      color: red;
+      font-size: 11px;
+    }
+    .errorMessageFetch{
+        text-align: center;
+    }
+    .form-container li{
+        font-size: 20px;
+        padding: 13px;
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0);
+       
+    }
+    .fullLoginPage input{
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        margin-top: 6px;
+    }
+    .active-btn{
+        border-bottom: 3px solid lightcoral;
+    font-weight: 500;
+
 }

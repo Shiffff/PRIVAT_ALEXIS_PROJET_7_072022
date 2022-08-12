@@ -17,6 +17,6 @@ mongoose.connect(`mongodb+srv://shiffff:OZq5LXfMjLUyJreS@project6.mrxapko.mongod
 app.use(cors());
 app.use(express.json());        // Recevoir les réponse json
 app.use('/images', express.static(path.join(__dirname, 'images')));       // route static pour les images DL
-app.use('/api/auth', userRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;

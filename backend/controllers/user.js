@@ -59,4 +59,28 @@ exports.getOneUser = (req, res, next) => {                  //get une seul sauce
         res.status(200).json(User)})                 // renvoie en format json la reponse (all schema) qui sera traduite côté front
     .catch(error => res.status(400).json({ error }));
   };
+
   
+  exports.updateUser = (req, res, next) => {
+    const userObject = req.file
+      ? {
+          ...req.body.user,
+          imageUrl: `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`,
+        }
+      : { ...req.body };
+    User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+      .then(() => {
+        res.status(200).json({ message: "Informations utilisateur modifiées" });
+      })
+      .catch((err) => res.status(404).json({ err }));
+  };
+
+
+  exports.getAllUser = (req, res, next) => {
+    User.find()
+    .select('-password')                                                      
+    .then(users => res.status(200).json(users))               
+    .catch(error => res.status(400).json({ error }));
+  };
