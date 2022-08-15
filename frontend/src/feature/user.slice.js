@@ -12,23 +12,16 @@ export const userSlice = createSlice({
     setUpdateBio: (state, { payload }) => {
       state.user.bio = payload;
     },
-  },
-});
-
-export const usersSlice = createSlice({
-  name: "users",
-  initialState: {
-    users: {},
-  },
-  reducers: {
-    setUsersData: (state, { payload }) => {
-      state.users = payload;
+    setFollowUser: (state, { payload }) => {
+      state.user.following.push(payload);
+    },
+    setUnFollowUser: (state, { payload }) => {
+      state.user.following = state.user.following.filter((id) => id !== payload)
     },
   },
 });
 
 
 
-
-export const { setUserData, setUpdateBio } = userSlice.actions;
+export const { setUserData, setUpdateBio, setFollowUser, setUnFollowUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 
@@ -6,6 +7,7 @@ const removeLocalStorage = () => {
     localStorage.clear();   
 }
     const MenuHome =  () => {
+    const userData = useSelector((state) => state.user.user);
 
     return (
         <nav>
@@ -31,6 +33,7 @@ const removeLocalStorage = () => {
                         </div>
                     </NavLink>
                 </div>
+                    <div className="nameMenu">Hello {userData.name} <img className='img-profile'src={userData.imageUrl} alt='icon'></img></div>
                     <div className='userName'></div>
                     <div className='logout' onClick={removeLocalStorage}>
                     <NavLink  to="/connexion">

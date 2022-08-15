@@ -22,5 +22,15 @@
     border-radius: 60px;
     height: 5px;
     width: 60px;
+}
+.img-profile{
+    width: 45px;
+    height: 45px;
+    border-radius: 20px;
+    display: inline;
 
+
+}
+.nameMenu{
+    display: inline;
 }

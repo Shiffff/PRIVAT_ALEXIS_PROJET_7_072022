@@ -5,11 +5,14 @@ const auth = require('../middleware/auth');
 const multer = require("../middleware/multer-config");
 
 
+
 // Login & infoUser
 router.post('/signup',  userCtrl.signup);    // route uniquement (logique importé via controllers)
 router.post('/login', userCtrl.login);      
 router.get('/auth', auth, userCtrl.getOneUser);
 router.get('/users',  userCtrl.getAllUser);
+router.put('/follow/:id', userCtrl.follow);
+router.put('/unfollow/:id', userCtrl.unfollow);
 
 
 // upload User

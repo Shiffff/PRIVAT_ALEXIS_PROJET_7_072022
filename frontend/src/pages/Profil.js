@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UploadImg from "../components/profil/UploadImg";
+import FollowHandler from "../components/profil/followHandler";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUpdateBio } from "../feature/user.slice";
@@ -8,12 +9,12 @@ import { dateParser } from "../utils/utils";
 const Profil = () => {
   const dispatch = useDispatch();
   const [bio, setBio] = useState("");
-  const [updateForm, setUpdateForm] = useState(false);
+  const [ setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.user.user);
+  const usersData = useSelector((state) => state.users.users);
 
   const [followingPopup, setfollowingPopup] = useState(false);
   const [followersPopup, setfollowersPopup] = useState(false);
-
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -30,38 +31,24 @@ const Profil = () => {
   return (
     <>
       <div className="profil-container">
-        <h1> Profil de {userData.name}</h1>
+        <h1> Mon profil</h1>
         <div className="uptdate-container">
           <div className="left-part">
-            <h3>Photo de profil</h3>
+            <h3>{userData.name} {userData.firstName}</h3>
             <img src={userData.imageUrl} alt="img de profil" />
             <UploadImg />
           </div>
           <div className="right-part">
             <div className="bio-update">
               <h3>Bio</h3>
-              {updateForm === false && (
-                <>
-                  <p onClick={() => setUpdateForm(!updateForm)}>
-                    {userData.bio}
-                  </p>
-                  <button onClick={() => setUpdateForm(!updateForm)}>
-                    Modifier bio
-                  </button>
-                </>
-              )}
-              {updateForm && (
-                <>
                   <textarea
                     type="text"
                     defaultValue={userData.bio}
-                    onChange={(e) => setBio(e.target.value)}
-                  ></textarea>
+                    onChange={(e) => setBio(e.target.value)}>
+                  </textarea>
                   <button onClick={handleUpdate}>Valider modifications</button>
-                </>
-              )}
             </div>
-            <h4>Membre depuis le: {dateParser(userData.createdAt)}</h4>
+            <h4>Membre depuis le {dateParser(userData.createdAt)}</h4>
             <h5 onClick={() => setfollowingPopup(true)}>
               Abonnements :
               {userData.following ? userData.following.length : "0"}
@@ -75,10 +62,56 @@ const Profil = () => {
           <div className="popup-profil-container">
             <div className="modal">
               <h3>Abonnements</h3>
-              <span className="cross" onClick={() => setfollowingPopup(false)}>&#10005;
+              <span className="cross" onClick={() => setfollowingPopup(false)}>
+                &#10005;
               </span>
               <ul>
-                
+                {usersData.map((user) => {
+                  let renvoyer;
+                  for (let i = 0; i < userData.following.length; i++) {
+                    if (user._id === userData.following[i]) {
+                      renvoyer = (
+                        <li key={user._id}>
+                          <img src={user.imageUrl} alt="user-pic" />
+                          <h4>{user.name}</h4>
+                          <div className="follow-handler">
+                          <FollowHandler  idToFollow={user._id}/>
+                          </div>
+                        </li>
+                      );
+                    }
+                  }
+                  return renvoyer;
+                })}
+              </ul>
+            </div>
+          </div>
+        )}
+        {followersPopup && (
+          <div className="popup-profil-container">
+            <div className="modal">
+              <h3>Abonnés</h3>
+              <span className="cross" onClick={() => setfollowersPopup(false)}>
+                &#10005;
+              </span>
+              <ul>
+                {usersData.map((user) => {
+                  let renvoyer;
+                  for (let i = 0; i < userData.followers.length; i++) {
+                    if (user._id === userData.followers[i]) {
+                      renvoyer = (
+                        <li key={user._id}>
+                          <img src={user.imageUrl} alt="user-pic" />
+                          <h4>{user.name}</h4>
+                          <div className="follow-handler">
+                          <FollowHandler idToFollow={user._id}/>
+                          </div>
+                        </li>
+                      );
+                    }
+                  }
+                  return renvoyer;
+                })}
               </ul>
             </div>
           </div>

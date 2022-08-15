@@ -84,3 +84,33 @@ exports.getOneUser = (req, res, next) => {                  //get une seul sauce
     .then(users => res.status(200).json(users))               
     .catch(error => res.status(400).json({ error }));
   };
+
+
+
+  exports.follow = (req, res, next) => {
+    User.updateOne({ _id: req.params.id }, {  // cherche dans mongoDB le bon ID grace a la fonction uptadeOne et a l'id dans les parametre de requette
+      $push: { following: req.body.idToFollow  }  // push le nom du user qui a efféctuer le like dans le tableau users ($inc et push sont des commande pour intéragir avec mongoDB)
+  })
+  .then(console.log)
+  User.updateOne({ _id: req.body.idToFollow }, {  // cherche dans mongoDB le bon ID grace a la fonction uptadeOne et a l'id dans les parametre de requette
+    $push: { followers: req.params.id  }  // push le nom du user qui a efféctuer le like dans le tableau users ($inc et push sont des commande pour intéragir avec mongoDB)
+})
+.then(() => res.status(201).json({ message: 'Ajout du like '}))
+.catch(error => res.status(400).json({ error }));
+};
+  
+
+
+  exports.unfollow = async (req, res, next) => {
+
+    User.updateOne({ _id: req.params.id }, {  // cherche dans mongoDB le bon ID grace a la fonction uptadeOne et a l'id dans les parametre de requette
+      $pull: { following: req.body.idToFollow  }  // push le nom du user qui a efféctuer le like dans le tableau users ($inc et push sont des commande pour intéragir avec mongoDB)
+  })
+  .then(console.log)
+  User.updateOne({ _id: req.body.idToFollow }, {  // cherche dans mongoDB le bon ID grace a la fonction uptadeOne et a l'id dans les parametre de requette
+    $pull: { followers: req.params.id  }  // push le nom du user qui a efféctuer le like dans le tableau users ($inc et push sont des commande pour intéragir avec mongoDB)
+})
+.then(() => res.status(201).json({ message: 'Ajout du like '}))
+.catch(error => res.status(400).json({ error }));
+};
+
