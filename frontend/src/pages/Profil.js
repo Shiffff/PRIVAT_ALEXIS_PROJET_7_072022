@@ -75,7 +75,7 @@ const Profil = () => {
                           <img src={user.imageUrl} alt="user-pic" />
                           <h4>{user.name}</h4>
                           <div className="follow-handler">
-                          <FollowHandler  idToFollow={user._id}/>
+                          <FollowHandler  idToFollow={user._id} type={"suggestion"}/>
                           </div>
                         </li>
                       );
@@ -104,7 +104,7 @@ const Profil = () => {
                           <img src={user.imageUrl} alt="user-pic" />
                           <h4>{user.name}</h4>
                           <div className="follow-handler">
-                          <FollowHandler idToFollow={user._id}/>
+                          <FollowHandler idToFollow={user._id} type={"suggestion"}/>
                           </div>
                         </li>
                       );

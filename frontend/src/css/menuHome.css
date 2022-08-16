@@ -15,8 +15,8 @@
 }
 .activeLinkHome::after{
     content: "";
-    color: rgb(255, 0, 0);
-    background: red;
+    background-color: lightcoral;
+    background-color: lightcoral;
     position: absolute;
     top:58px;
     border-radius: 60px;

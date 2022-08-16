@@ -13,8 +13,10 @@ import MenuHome from "./components/menuHome";
 import { useDispatch } from 'react-redux';
 import { setUserData } from './feature/user.slice';
 import { setUsersData } from './feature/users.slice';
+import { setPostData } from './feature/post.slice';
 const urlUser = `http://localhost:3000/api/user/auth`;
 const urlUsers = `http://localhost:3000/api/user/users`;
+const urlPosts = `http://localhost:3000/api/post/posts`;
 
 
 
@@ -22,6 +24,7 @@ const urlUsers = `http://localhost:3000/api/user/users`;
 function App() {
   const dispatch = useDispatch()
   const [uid, setUid] = useState({});
+  
 
   useEffect(() => {
     const fetchToken = async() => {
@@ -50,9 +53,21 @@ dispatch(setUsersData(res.data));
 };
 
 
+const getallposts = async() => {
+  await axios ({
+method: "get",
+url: urlPosts,
+})
+.then((res) =>{
+dispatch(setPostData(res.data));
+})
+.catch((err) => console.log('err'))
+};
+
+
   fetchToken();
   getallusers();
-
+  getallposts();
   
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

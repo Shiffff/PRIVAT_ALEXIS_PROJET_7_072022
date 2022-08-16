@@ -2,6 +2,7 @@
 @import './menuAuth.css';
 @import './menuHome.css';
 @import './profil.css';
+@import './post_card.css';
 
 body{
     font-family: Lato;

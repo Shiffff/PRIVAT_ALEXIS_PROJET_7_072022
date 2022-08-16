@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 var cors = require('cors')      //Gere le pb de cors (ystème de sécurité qui, par défaut, bloque les appels HTTP entre des serveurs différents)
 const userRoutes = require('./routes/user');     // importation des routes users
+const postRoutes = require('./routes/post');     // importation des routes users
 const path = require('path');       // gére les chemins d'accées au fichier
 
 
@@ -18,5 +19,7 @@ app.use(cors());
 app.use(express.json());        // Recevoir les réponse json
 app.use('/images', express.static(path.join(__dirname, 'images')));       // route static pour les images DL
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
+
 
 module.exports = app;

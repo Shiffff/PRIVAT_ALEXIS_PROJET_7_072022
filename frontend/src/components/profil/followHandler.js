@@ -5,7 +5,7 @@ import axios from "axios";
 import { setFollowUser, setUnFollowUser } from "../../feature/user.slice";
 
 
-const FollowHandler = ({ idToFollow }) => {
+const FollowHandler = ({ idToFollow, type }) => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
   const [isFollowed, setisFollowed] = useState(false);
@@ -64,12 +64,14 @@ const FollowHandler = ({ idToFollow }) => {
     <>
       {isFollowed && !isEmpty(userData) && (
         <span onClick={handleUnfollow}>
-          <button className="unfollow-btn">Abonné</button>
+          { type === "suggestion" && <button className="unfollow-btn">Abonné</button>}
+          {type === "card" && <img className="followPost" src="../checked.svg" alt='icon logout'></img>}
         </span>
       )}
       {isFollowed === false && !isEmpty(userData) && (
         <span onClick={handleFollow}>
-          <button className="follow-btn">Suivre</button>
+          {type === "suggestion" && <button className="follow-btn">Suivre</button>}
+          {type === "card" && <img className="unfollowPost" src="../check.svg" alt='icon logout'></img>}
         </span>
       )}
     </>

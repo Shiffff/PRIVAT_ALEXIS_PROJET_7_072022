@@ -1,0 +1,72 @@
+.main{
+    display: flex;
+    justify-content: center;
+    background-color: lightblue;
+
+    
+}
+.main ul {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+}
+
+
+.card-container{
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.157);
+    width: 600px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 5px 15px;    
+
+    
+    
+
+}
+.card-left img{
+    width: 45px;
+    height: 45px;
+    border-radius: 20px;
+    margin-top: 22px;
+    margin-left: 10px;
+    
+}
+
+.pseudo h3{
+    font-size: 15px;
+    margin: 0px ;
+    margin-top: 5px;
+    margin-left: 10px;
+
+}
+.datePost{
+    margin-left: 20px;
+}
+.card-header{
+    display: flex;
+}
+
+.pseudo{
+    display: flex;
+}
+
+.pseudo img {
+    width: 20px;
+    height: 20px;
+}
+.card-footer{
+    display: flex;
+}
+.card-footer img{
+    width: 20px;
+    height: 20;
+}
+.card-footer h6{
+margin: 0;
+margin-left: 10px;
+}
+.card-right{
+    margin-left: 20px;
+}
