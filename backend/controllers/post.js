@@ -24,4 +24,16 @@ exports.putUnlikePost = (req, res, next) => {
 .catch(error => res.status(400).json({ error }));
 };
 
+exports.putPost = (req, res, next) => {                     
+  Post.updateOne({ _id: req.params.id}, {...req.body, _id: req.params.id})     
+    .then(() => res.status(200).json({ message: 'objet modifié !'}))
+    .catch(error => res.status(400).json({ error }));
+};
+
+                                                                    
+
+
+
+
+
 

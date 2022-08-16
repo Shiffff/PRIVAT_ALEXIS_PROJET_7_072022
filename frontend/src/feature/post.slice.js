@@ -37,10 +37,36 @@ export const postSlice = createSlice({
             }
           });
         },
+
+        putPostData: (state, { payload }) => {
+          state.post = state.post.map((postOne) => {
+            if (postOne._id === payload[1]) {
+              return {
+                ...postOne,
+                message: payload[0],
+              }
+              }else{
+              return postOne;
+            }
+        });
+    },
+
+    deletePost: (state, { payload }) => {
+      state.post = state.post.filter((postOne) => postOne._id !== payload);
+    },
+
+
+    
+
+
+
+
+
+
     },
   });
 
 
 
-export const { setPostData,  setLikePost, setUnLikePost } = postSlice.actions;
+export const { setPostData,  setLikePost, setUnLikePost, putPostData, deletePost } = postSlice.actions;
 export default postSlice.reducer;
