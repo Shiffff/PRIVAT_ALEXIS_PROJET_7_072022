@@ -6,32 +6,30 @@ import { putPostData } from "../../feature/post.slice";
 import LikeButton from "./LikeButton";
 import axios from "axios";
 import DeleteCard from "../Post/DeleteCard";
-
-
+import CardComment from "./CardComment";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showComments, setShowComments] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
   const userData = useSelector((state) => state.user.user);
   const usersData = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
 
-
-
   const updateItem = async () => {
     if (textUpdate) {
-        axios ({
-            method: "put",
-            url: `http://localhost:3000/api/post/${post._id}`,
-            data:  { message: textUpdate } 
-            })
-            .then((res) =>{
-                console.log(res.data)
-                dispatch(putPostData( [ textUpdate, post._id]  ))
-                setIsUpdated(false)
-            })
-            .catch((err) => console.log('err'))
+      axios({
+        method: "put",
+        url: `http://localhost:3000/api/post/${post._id}`,
+        data: { message: textUpdate },
+      })
+        .then((res) => {
+          console.log(res.data);
+          dispatch(putPostData([textUpdate, post._id]));
+          setIsUpdated(false);
+        })
+        .catch((err) => console.log("err"));
     }
   };
 
@@ -110,7 +108,8 @@ const Card = ({ post }) => {
             <div className="card-footer">
               <div className="comment-icon">
                 <img
-                  className="unfollowPost"
+                  onClick={() => setShowComments(!showComments)}
+                  className="comment-icon"
                   src="../comment.svg"
                   alt="icon logout"
                 ></img>
@@ -118,6 +117,7 @@ const Card = ({ post }) => {
               </div>
               <LikeButton post={post} />
             </div>
+            {showComments && <CardComment post={post} />}
           </div>
         </>
       )}

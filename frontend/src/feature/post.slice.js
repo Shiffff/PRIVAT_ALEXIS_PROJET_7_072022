@@ -55,8 +55,44 @@ export const postSlice = createSlice({
       state.post = state.post.filter((postOne) => postOne._id !== payload);
     },
 
+    editComment: (state, { payload }) => {
+      state.post = state.post.map((postOne) => {
+        if (postOne._id === payload[1]) {
+          return {
+            ...postOne,
+            comments: postOne.comments.map((comment) => {
+              if (comment._id === payload[0]){
+                return {
+                  ...comment, 
+                  text: payload[2]
+                }
+              } else {
+                return comment
+              }
+            })
+          }
+          }else{
+          return postOne;
+        }
+    });
+    },
 
-    
+
+    deleteComment: (state, { payload }) => {
+      state.post = state.post.map((postOne) => {
+        if (postOne._id === payload[1]) {
+          return {
+            ...postOne,
+            comments: postOne.comments.filter((comment) => comment._id !== payload[0])
+          }
+          }else{
+          return postOne;
+        }
+    });
+    },
+
+
+
 
 
 
@@ -68,5 +104,5 @@ export const postSlice = createSlice({
 
 
 
-export const { setPostData,  setLikePost, setUnLikePost, putPostData, deletePost } = postSlice.actions;
+export const { setPostData,  setLikePost, setUnLikePost, putPostData, deletePost, editComment, deleteComment } = postSlice.actions;
 export default postSlice.reducer;

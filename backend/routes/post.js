@@ -10,11 +10,9 @@ router.get('/posts',  postCtrl.getAllPost);
 router.put('/like/:id', postCtrl.putLikePost);
 router.put('/unlike/:id', postCtrl.putUnlikePost);
 router.put('/:id', multer, postCtrl.putPost);
-
-
-
-
-
+router.put('/comment/:id', postCtrl.putComment);
+router.put('/deletecomment/:id', postCtrl.deleteComment);
+router.post('/comment/:id', postCtrl.addComment)
 
 
 
