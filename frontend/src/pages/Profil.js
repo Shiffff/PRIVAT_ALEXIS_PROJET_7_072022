@@ -16,6 +16,24 @@ const Profil = () => {
   const [followingPopup, setfollowingPopup] = useState(false);
   const [followersPopup, setfollowersPopup] = useState(false);
 
+  const handleDelete = () => {
+    axios ({
+      method: "delete",
+      url:`http://localhost:3000/api/user/${userData._id}`,
+  
+      })
+      .then((res) =>{
+      localStorage.clear()
+      window.location.reload();
+
+      })
+      .catch((err) => console.log('err'))
+  
+    }
+
+
+
+
   const handleUpdate = (e) => {
     e.preventDefault();
     axios({
@@ -56,6 +74,19 @@ const Profil = () => {
             <h5 onClick={() => setfollowersPopup(true)}>
               Abonnés : {userData.followers ? userData.followers.length : "0"}
             </h5>
+            <div className="btn">
+            <span
+              onClick={() => {
+                if (
+                  window.confirm("êtes vous sur de vouloir supprimer votre profil ?")
+                ) {
+                  handleDelete();
+                }
+              }}
+            >
+          <input type="submit" value="Supprimer profil" />
+            </span>
+          </div>
           </div>
         </div>
         {followingPopup && (
@@ -116,6 +147,7 @@ const Profil = () => {
             </div>
           </div>
         )}
+
       </div>
     </>
   );

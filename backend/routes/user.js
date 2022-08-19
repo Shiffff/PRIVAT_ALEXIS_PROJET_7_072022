@@ -13,6 +13,8 @@ router.get('/auth', auth, userCtrl.getOneUser);
 router.get('/users',  userCtrl.getAllUser);
 router.put('/follow/:id', userCtrl.follow);
 router.put('/unfollow/:id', userCtrl.unfollow);
+router.delete('/:id', userCtrl.deleteUser);
+
 
 
 // upload User

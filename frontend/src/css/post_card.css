@@ -1,5 +1,4 @@
 .main{
-    display: flex;
     justify-content: center;
     background-color: lightblue;
 
@@ -69,4 +68,7 @@ margin-left: 10px;
 }
 .card-right{
     margin-left: 20px;
+}
+.card-pic {
+    width: 180px;
 }

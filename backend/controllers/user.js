@@ -1,6 +1,8 @@
 const User = require('../models/User');         // importation du model (email + password)
 const bcrypt = require('bcrypt');               // Utilisation du plugin bcrypt
-const jwt = require('jsonwebtoken');            // Importation du plugin de génération token        
+const jwt = require('jsonwebtoken');            // Importation du plugin de génération token      
+const fs = require('fs');
+
 require('dotenv').config();
 
 
@@ -114,3 +116,27 @@ exports.getOneUser = (req, res, next) => {                  //get une seul sauce
 .catch(error => res.status(400).json({ error }));
 };
 
+
+
+
+exports.deleteUser = (req, res, next) => {
+  User.findOne({ _id: req.params.id })
+  .then(user => {
+    if (user.imageUrl) {
+      const filename = user.imageUrl.split('/images/')[1];
+      if(filename === "user_default.jpg"){      
+        User.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'User supprimé !' }))
+      .catch(error => res.status(400).json({ error }))
+}
+     else {
+      const filename = user.imageUrl.split('/images/')[1];
+      fs.unlink(`images/${filename}`, () => {
+        // Supprime le post sélectionné
+        User.deleteOne({ _id: req.params.id })
+          .then(() => res.status(200).json({ message: 'User supprimé !' }))
+          .catch(error => res.status(400).json({ error }))
+      })
+    }
+    }})
+  }

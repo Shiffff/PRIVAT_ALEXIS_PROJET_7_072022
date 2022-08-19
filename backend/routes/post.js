@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const postCtrl = require('../controllers/post');
-const multer = require("../middleware/multer-config");
+const multer = require("../middleware/multer-post-config");
 
 
 
@@ -9,10 +9,12 @@ const multer = require("../middleware/multer-config");
 router.get('/posts',  postCtrl.getAllPost);
 router.put('/like/:id', postCtrl.putLikePost);
 router.put('/unlike/:id', postCtrl.putUnlikePost);
-router.put('/:id', multer, postCtrl.putPost);
+router.put('/:id', postCtrl.putPost);
 router.put('/comment/:id', postCtrl.putComment);
 router.put('/deletecomment/:id', postCtrl.deleteComment);
-router.post('/comment/:id', postCtrl.addComment)
+router.post('/comment/:id', postCtrl.addComment);
+router.post('/post/:id',multer, postCtrl.addNewPost);
+router.delete('/post/:id', postCtrl.deletePost);
 
 
 
