@@ -6,58 +6,47 @@
 }
 .main ul {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    padding: 0;
+    gap: 15px;
     
 }
-
-
 .card-container{
     display: flex;
     border: 1px solid rgba(0, 0, 0, 0.157);
-    width: 600px;
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     box-shadow: rgba(0, 0, 0, 0.18) 0px 5px 15px;    
-
-    
-    
-
+    position: relative;
 }
+
 .card-left img{
     width: 45px;
     height: 45px;
     border-radius: 20px;
-    margin-top: 22px;
-    margin-left: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
     
 }
 
 .pseudo h3{
-    font-size: 15px;
+    font-size: 16px;
     margin: 0px ;
     margin-top: 5px;
     margin-left: 10px;
 
 }
-.datePost{
-    margin-left: 20px;
-}
-.card-header{
-    display: flex;
-}
+
 
 .pseudo{
     display: flex;
+    margin-top: 15px;
 }
 
 .pseudo img {
     width: 20px;
     height: 20px;
 }
-.card-footer{
-    display: flex;
-}
+
 .card-footer img{
     width: 20px;
     height: 20;
@@ -68,7 +57,86 @@ margin-left: 10px;
 }
 .card-right{
     margin-left: 20px;
+    width: 90%;
+}
+
+.footer-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.thread-container{
+    margin-top: 25px;
+    width: 40%;
+    min-width: 310px;
+
+}
+
+.button-container{
+    display: flex;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.card-container{
+    overflow: hidden;
+    position: relative;
+}
+
+.card-footer{
+    display: flex;
+    margin-bottom: 15px;
+    margin-top: 5px;
 }
 .card-pic {
-    width: 180px;
+    width: 90%;
+    border-radius: 10px;
+
+}
+
+.card-container p {
+    width: 100%;
+}
+
+.like-container{
+    margin-left: 10px;
+}
+.datePost{
+    font-size: 14px;
+}
+.update-post textarea{
+    width: 80%;
+    resize: none;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    padding: 5px;
+    margin: 0% 5% 0px 5%;
+    font-family: lato;
+}
+.update-post textarea:focus{
+    outline: none;
+}
+
+.button-container .btn{
+    cursor: pointer;
+    outline: 0;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: lightcoral;
+    border-color: lightcoral;
+}
+
+.button-container .btn:hover{
+    color: #fff;
+    background-color: lightcoral;
+    border-color: lightcoral;
 }

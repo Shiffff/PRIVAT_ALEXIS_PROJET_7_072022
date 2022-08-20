@@ -64,7 +64,7 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user._id === post.posterId) return user.name;
+                        if (user._id === post.posterId) return user.name + (" ") + user.firstName;
                         else return null;
                       })
                       .join("")}
@@ -72,27 +72,7 @@ const Card = ({ post }) => {
                 {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post._id} type={"card"} />
                 )}
-              </div>
-              <span className="datePost">{dateParser(post.createdAt)}</span>
-            </div>
-            {isUpdated === false && <p>{post.message}</p>}
-            {isUpdated && (
-              <div className="update-post">
-                <textarea
-                  defaultValue={post.message}
-                  onChange={(e) => setTextUpdate(e.target.value)}
-                />
-                <div className="button-container">
-                  <button className="btn" onClick={updateItem}>
-                    valider modification
-                  </button>
-                </div>
-              </div>
-            )}
-            {post.picture && (
-              <img src={post.picture} alt="card-pic" className="card-pic" />
-            )}
-            {userData._id === post.posterId && (
+              {userData._id === post.posterId && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(!isUpdated)}>
                   <img
@@ -104,6 +84,28 @@ const Card = ({ post }) => {
                 <DeleteCard id={post._id} />
               </div>
             )}
+              </div>
+              <span className="datePost">{dateParser(post.createdAt)}</span>
+
+
+            </div>
+            {isUpdated === false && <p>{post.message}</p>}
+            {isUpdated && (
+              <div className="update-post">
+                <textarea
+                  defaultValue={post.message}
+                  onChange={(e) => setTextUpdate(e.target.value)}
+                />
+                <div className="button-container">
+                  <button className="btn" onClick={updateItem}>
+                    Modifier
+                  </button>
+                </div>
+              </div>
+            )}
+            {post.picture && (
+              <img src={post.picture} alt="card-pic" className="card-pic" />
+            )}
 
             <div className="card-footer">
               <div className="comment-icon">
@@ -111,10 +113,10 @@ const Card = ({ post }) => {
                   onClick={() => setShowComments(!showComments)}
                   className="comment-icon"
                   src="../comment.svg"
-                  alt="icon logout"
-                ></img>
-                <span>{post.comments.lenght}</span>
+                  alt="comment"
+                  ></img>
               </div>
+                <span>{post.comments.length}</span>
               <LikeButton post={post} />
             </div>
             {showComments && <CardComment post={post} />}

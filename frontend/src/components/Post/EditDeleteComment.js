@@ -67,7 +67,7 @@ const EditDeleteComment = ({ comment, postId }) => {
       {IsAuthor && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            editer
+            Editer
           </label>
           <br />
           <input
@@ -89,7 +89,7 @@ const EditDeleteComment = ({ comment, postId }) => {
             >
               <img className="edit" src="../trash.svg" alt="Edit"></img>
             </span>
-          <input type="submit" value="valider modification" />
+          <input type="submit" value="Modifier" />
           </div>
         </form>
       )}

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setPostData } from "../../feature/post.slice";
+import { timestampParser } from "../../utils/utils";
 
 const NewPostForm = () => {
   const [message, setMessage] = useState("");
@@ -12,55 +13,47 @@ const NewPostForm = () => {
   const dispatch = useDispatch();
   const urlPosts = `http://localhost:3000/api/post/posts`;
 
-
   const handlePost = async () => {
-    if (message || postPicture){
-        const data = new FormData();
-        data.append('posterId', userData._id);
-        data.append('message', message);
-        if (file) data.append("image", file)
+    if (message || postPicture) {
+      const data = new FormData();
+      data.append("posterId", userData._id);
+      data.append("message", message);
+      if (file) data.append("image", file);
 
-        await axios({
-            method: "post",
-            url: `http://localhost:3000/api/post/post/${userData._id}`,
-            data: data
-        })
-        .then((res) =>{
-            const getallposts = async() => {
-              await axios ({
+      await axios({
+        method: "post",
+        url: `http://localhost:3000/api/post/post/${userData._id}`,
+        data: data,
+      }).then((res) => {
+        const getallposts = async () => {
+          await axios({
             method: "get",
             url: urlPosts,
-            })
-            .then((res) =>{
+          })
+            .then((res) => {
               dispatch(setPostData(res.data));
               cancelPost();
-                console.log("ok")
+              console.log("ok");
             })
-            .catch((err) => console.log('err'))
-            };
-            getallposts();
-
-          })    
-        }else{
-        alert("veuillez entrer un message")
+            .catch((err) => console.log("err"));
+        };
+        getallposts();
+      });
+    } else {
+      alert("veuillez entrer un message");
     }
   };
 
-
   const handlePicture = (e) => {
+    setPostPicture(URL.createObjectURL(e.target.files[0]));
     setFile(e.target.files[0]);
-    
   };
-
-
 
   const cancelPost = () => {
-    setMessage('');
-    setPostPicture('');
-    setFile('');
+    setMessage("");
+    setPostPicture("");
+    setFile("");
   };
-
-
 
   return (
     <div className="post-container">
@@ -69,7 +62,9 @@ const NewPostForm = () => {
           <NavLink to="/profil">
             <div className="user-info">
               <img src={userData.imageUrl} alt="photo de profil"></img>
-              <h3>{userData.name}</h3>
+              <h3>
+                {userData.name} {userData.firstName}
+              </h3>
             </div>
           </NavLink>
           <div className="post-form">
@@ -80,6 +75,29 @@ const NewPostForm = () => {
               onChange={(e) => setMessage(e.target.value)}
               value={message}
             />
+              <div className="card-visual-container">
+            {message || postPicture ? (
+              <li className="card-container card-visual">
+                <div className="card-left">
+                  <img src={userData.imageUrl} alt="user-pic" />
+                </div>
+                <div className="card-right">
+                  <div className="card-header">
+                    <div className="pseudo">
+                      <h3>
+                        {userData.name} {userData.firstName}
+                      </h3>
+                    </div>
+                    <span>{timestampParser(Date.now())}</span>
+                  </div>
+                  <div className="content">
+                    <p>{message}</p>
+                    <img src={postPicture} alt="" />
+                  </div>
+                </div>
+              </li>
+            ) : null}
+            </div>
             <div className="footer-form">
               <div className="icon">
                 <img className="picture" src="../picture.svg" alt="pic"></img>
@@ -91,11 +109,16 @@ const NewPostForm = () => {
                   onChange={(e) => handlePicture(e)}
                 />
               </div>
-            </div>
-            <div className="btn-send">
+              <div className="btn-send">
                 {message || postPicture ? (
-                <button className="cancel" onClick={cancelPost}>Annuler message</button>) : null}
-                <button className="send" onClick={handlePost}>Envoyer</button>
+                  <button className="cancel" onClick={cancelPost}>
+                    Annuler message
+                  </button>
+                ) : null}
+                <button className="send" onClick={handlePost}>
+                  Publier
+                </button>
+              </div>
             </div>
           </div>
         </div>

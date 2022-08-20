@@ -1,5 +1,5 @@
 const Post = require("../models/post"); // importation du model (email + password)
-const fs = require('fs');
+const fs = require("fs");
 
 exports.getAllPost = (req, res, next) => {
   Post.find()
@@ -71,70 +71,62 @@ exports.putComment = (req, res, next) => {
 };
 
 exports.deleteComment = (req, res) => {
-  Post.findByIdAndUpdate(
-      req.params.id,
-      {
-        $pull: {
-          comments: {
-            _id: req.body.commentid,
-          },
-        },
+  Post.findByIdAndUpdate(req.params.id, {
+    $pull: {
+      comments: {
+        _id: req.body.commentid,
       },
-      )
-      .then((data) => res.send(data))
-      .catch((err) => res.status(500).send({ message: err }));
-    } 
+    },
+  })
+    .then((data) => res.send(data))
+    .catch((err) => res.status(500).send({ message: err }));
+};
 
-    
-
-    exports.addNewPost = async (req, res, next) => {
-      if (req.file ){
-      const newPost = new Post( {
-          posterId: req.params.id,
-          message: req.body.message,
-          picture: `${req.protocol}://${req.get("host")}/postimages/${req.file.filename}`,
-      });
-  
-      try {
-          const post = await newPost.save();
-          return res.status(201).json(post);
-      }
-      catch (error) {
-          return res.status(400).send(error);
-      }
-  }else{
-    const newPost = new Post( {
+exports.addNewPost = async (req, res, next) => {
+  if (req.file) {
+    const newPost = new Post({
       posterId: req.params.id,
       message: req.body.message,
-  });
+      picture: `${req.protocol}://${req.get("host")}/postimages/${
+        req.file.filename
+      }`,
+    });
 
-  try {
+    try {
       const post = await newPost.save();
       return res.status(201).json(post);
-  }
-  catch (error) {
+    } catch (error) {
       return res.status(400).send(error);
-  }
-  }
-}
+    }
+  } else {
+    const newPost = new Post({
+      posterId: req.params.id,
+      message: req.body.message,
+    });
 
-
+    try {
+      const post = await newPost.save();
+      return res.status(201).json(post);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  }
+};
 
 exports.deletePost = (req, res) => {
-  Post.findOne({ _id: req.params.id })
-  .then(post => {
+  Post.findOne({ _id: req.params.id }).then((post) => {
     if (post.picture) {
-      const filename = post.picture.split('/postimages/')[1];
+      const filename = post.picture.split("/postimages/")[1];
       fs.unlink(`postimages/${filename}`, () => {
         // Supprime le post sélectionné
         Post.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Post supprimé !' }))
-          .catch(error => res.status(400).json({ error }))
-      })
+          .then(() => res.status(200).json({ message: "Post supprimé !" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
     } else {
       Post.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Post supprimé !' }))
-        .catch(error => res.status(400).json({ error }))
+        .then(() => res.status(200).json({ message: "Post supprimé !" }))
+        .catch((error) => res.status(400).json({ error }));
     }
-    })
-  }
+  });
+};

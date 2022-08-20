@@ -70,12 +70,12 @@ const CardComment = ({ post }) => {
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  <h3>{comment.commenterName}</h3>
+                  <h3>{comment.commenterName} {userData.firstName}</h3>
                 </div>
-                <span>{timestampParser(comment.timestamp)}</span>
-              </div>
+                <span className="comment-date">{timestampParser(comment.timestamp)}</span>
               <p>{comment.text}</p>
               <EditDeleteComment comment={comment} postId={post._id}/>
+              </div>
             </div>
           </div>
         );
@@ -87,7 +87,7 @@ const CardComment = ({ post }) => {
             name="text"
             onChange={(e) => setText(e.target.value)}
             value={text}
-            placeholder="laisser un commentaire"
+            placeholder="Commenter ..."
           />
           <br />
           <input type="submit" value="envoyer" />
