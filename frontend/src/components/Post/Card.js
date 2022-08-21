@@ -70,7 +70,7 @@ const Card = ({ post }) => {
                       .join("")}
                 </h3>
                 {post.posterId !== userData._id && (
-                  <FollowHandler idToFollow={post._id} type={"card"} />
+                  <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               {userData._id === post.posterId && (
               <div className="button-container">

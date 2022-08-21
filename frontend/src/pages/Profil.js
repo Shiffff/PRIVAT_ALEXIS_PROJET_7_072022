@@ -9,7 +9,7 @@ import { dateParser } from "../utils/utils";
 const Profil = () => {
   const dispatch = useDispatch();
   const [bio, setBio] = useState("");
-  const [ setUpdateForm] = useState(false);
+  const [setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.user.user);
   const usersData = useSelector((state) => state.users.users);
 
@@ -17,23 +17,17 @@ const Profil = () => {
   const [followersPopup, setfollowersPopup] = useState(false);
 
   const handleDelete = () => {
-    axios ({
+    axios({
       method: "delete",
-      url:`http://localhost:3000/api/user/${userData._id}`,
-  
-      })
-      .then((res) =>{
-      localStorage.clear()
+      url: `http://localhost:3000/api/user/${userData._id}`,
+    })
+    .then((res) => {
+      localStorage.clear();
       window.location.reload();
-
-      })
-      .catch((err) => console.log('err'))
+    })
+    .catch((err) => console.log("err"));
+  };
   
-    }
-
-
-
-
   const handleUpdate = (e) => {
     e.preventDefault();
     axios({
@@ -45,28 +39,29 @@ const Profil = () => {
       setUpdateForm(false);
     });
   };
-
+  
   return (
     <>
       <div className="profil-container">
-        <h1> Mon profil</h1>
-        <div className="uptdate-container">
+        <div className="update-container">
           <div className="left-part">
-            <h3>{userData.name} {userData.firstName}</h3>
+            <h6>
+              {userData.name} {userData.firstName}
+            </h6>
+    <h4>Membre depuis le {dateParser(userData.createdAt)}</h4>
             <img src={userData.imageUrl} alt="img de profil" />
             <UploadImg />
           </div>
           <div className="right-part">
             <div className="bio-update">
               <h3>Bio</h3>
-                  <textarea
-                    type="text"
-                    defaultValue={userData.bio}
-                    onChange={(e) => setBio(e.target.value)}>
-                  </textarea>
-                  <button onClick={handleUpdate}>Valider modifications</button>
+              <textarea
+                type="text"
+                defaultValue={userData.bio}
+                onChange={(e) => setBio(e.target.value)}
+              ></textarea>
+              <button onClick={handleUpdate}>Valider modifications</button>
             </div>
-            <h4>Membre depuis le {dateParser(userData.createdAt)}</h4>
             <h5 onClick={() => setfollowingPopup(true)}>
               Abonnements :
               {userData.following ? userData.following.length : "0"}
@@ -75,20 +70,22 @@ const Profil = () => {
               Abonnés : {userData.followers ? userData.followers.length : "0"}
             </h5>
             <div className="btn">
-            <span
-              onClick={() => {
-                if (
-                  window.confirm("êtes vous sur de vouloir supprimer votre profil ?")
-                ) {
-                  handleDelete();
-                }
-              }}
-            >
-          <input type="submit" value="Supprimer profil" />
-            </span>
+              <span
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "êtes vous sur de vouloir supprimer votre profil ?"
+                    )
+                  ) {
+                    handleDelete();
+                  }
+                }}
+              >
+                <input type="submit" className="btn-trash" value="Supprimer profil" />
+              </span>
+            </div>
           </div>
-          </div>
-        </div>
+
         {followingPopup && (
           <div className="popup-profil-container">
             <div className="modal">
@@ -104,9 +101,12 @@ const Profil = () => {
                       renvoyer = (
                         <li key={user._id}>
                           <img src={user.imageUrl} alt="user-pic" />
-                          <h4>{user.name}</h4>
+                          <h4>{user.name} {user.firstName}</h4>
                           <div className="follow-handler">
-                          <FollowHandler  idToFollow={user._id} type={"suggestion"}/>
+                            <FollowHandler
+                              idToFollow={user._id}
+                              type={"suggestion"}
+                              />
                           </div>
                         </li>
                       );
@@ -133,11 +133,15 @@ const Profil = () => {
                       renvoyer = (
                         <li key={user._id}>
                           <img src={user.imageUrl} alt="user-pic" />
-                          <h4>{user.name}</h4>
+                          <h4>{user.name} {user.firstName}</h4>
                           <div className="follow-handler">
-                          <FollowHandler idToFollow={user._id} type={"suggestion"}/>
+                            <FollowHandler
+                              idToFollow={user._id}
+                              type={"suggestion"}
+                              />
                           </div>
                         </li>
+                        
                       );
                     }
                   }
@@ -147,7 +151,7 @@ const Profil = () => {
             </div>
           </div>
         )}
-
+        </div>
       </div>
     </>
   );

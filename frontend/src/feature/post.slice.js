@@ -89,11 +89,9 @@ export const postSlice = createSlice({
           return postOne;
         }
     });
+
+
     },
-
-
-
-
 
 
 
@@ -104,5 +102,5 @@ export const postSlice = createSlice({
 
 
 
-export const { setPostData,  setLikePost, setUnLikePost, putPostData, deletePost, editComment, deleteComment } = postSlice.actions;
+export const { setPostData,  setLikePost, setUnLikePost, putPostData, deletePost, editComment, deleteComment, getMinePost } = postSlice.actions;
 export default postSlice.reducer;

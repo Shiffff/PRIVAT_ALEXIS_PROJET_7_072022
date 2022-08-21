@@ -122,21 +122,24 @@ margin-left: 10px;
 .button-container .btn{
     cursor: pointer;
     outline: 0;
+    color: #fff;
+    background-color: lightcoral;
+    border-color: lightcoral;
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
     text-align: center;
     border: 1px solid transparent;
     padding: 6px 12px;
-    font-size: 1rem;
+    font-size: 16px;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    color: lightcoral;
-    border-color: lightcoral;
+
 }
 
 .button-container .btn:hover{
     color: #fff;
-    background-color: lightcoral;
-    border-color: lightcoral;
+    background-color: rgb(242, 149, 149);
+    border-color: rgb(236, 153, 153);
 }
+

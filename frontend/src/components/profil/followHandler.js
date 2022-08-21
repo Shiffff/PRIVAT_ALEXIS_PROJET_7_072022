@@ -26,7 +26,6 @@ const FollowHandler = ({ idToFollow, type }) => {
     };
     addFollow();
     setisFollowed(true)
-
   };
  
 

@@ -157,7 +157,7 @@ export default function SignInForm() {
                 <br/>
                 <div className="errorMessagePasswordCheck errormsg"></div>
                 <br/>
-                <input type="submit" className="submitLogin" value="Se connecter" />
+                <input type="submit" className="submitLogin" value="S'inscrire" />
                 <br/>
                 <div className="errorMessageFetch"></div>
             </form>
