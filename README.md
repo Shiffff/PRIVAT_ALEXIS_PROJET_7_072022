@@ -9,7 +9,7 @@ Développement Front-end : react, react-redux-toolkit, react router, jsonwebtoke
 
 Développement Backend: node.js, express, jsonwebtoken, helmet, bcrypt..
 
-base de données MongoDB
+base de données MongoDB (possibilité d'importé la base de donnée via fichiers JSON)
 
 profil Admin: admin@admin.fr ---- OZq5LXfMjLUyJreS
 
