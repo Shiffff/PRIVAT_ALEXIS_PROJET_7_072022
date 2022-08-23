@@ -5,38 +5,46 @@ import { setPostData } from "../../feature/post.slice";
 import { isEmpty, timestampParser } from "../../utils/utils";
 import EditDeleteComment from "./EditDeleteComment";
 
-
 const CardComment = ({ post }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
   const userData = useSelector((state) => state.user.user);
   const usersData = useSelector((state) => state.users.users);
-  const urlPosts = `http://localhost:3000/api/post/posts`;
-
 
   const handleComment = (e) => {
     e.preventDefault();
     if (text) {
-      axios ({
+      axios({
         method: "post",
-        url: `http://localhost:3000/api/post/comment/${post._id}`,
-        data:  { commenterId:userData._id, commenterName:userData.name, text:text } 
-        })
-        .then((res) =>{
-          const getallposts = async() => {
-            await axios ({
-          method: "get",
-          url: urlPosts,
-          })
-          .then((res) =>{
-          setText('')
-          dispatch(setPostData(res.data));
-          })
-          .catch((err) => console.log('err'))
+        url: `${process.env.REACT_APP_API_ENDPOINT}/post/comment/${post._id}`,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        data: {
+          commenterId: userData._id,
+          commenterName: userData.name,
+          commenterFirstName: userData.firstName,
+          text: text,
+        },
+      })
+        .then((res) => {
+          const getallposts = async () => {
+            await axios({
+              method: "get",
+              url: `${process.env.REACT_APP_API_ENDPOINT}/post/posts`,
+              headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+              },      
+            })
+              .then((res) => {
+                setText("");
+                dispatch(setPostData(res.data));
+              })
+              .catch((err) => console.log("err"));
           };
           getallposts();
         })
-        .catch((err) => console.log('err'))
+        .catch((err) => console.log("err"));
     }
   };
 
@@ -70,11 +78,15 @@ const CardComment = ({ post }) => {
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  <h3>{comment.commenterName} {userData.firstName}</h3>
+                  <h3>
+                  {comment.commenterFirstName} {comment.commenterName} 
+                  </h3>
                 </div>
-                <span className="comment-date">{timestampParser(comment.timestamp)}</span>
-              <p>{comment.text}</p>
-              <EditDeleteComment comment={comment} postId={post._id}/>
+                <span className="comment-date">
+                  {timestampParser(comment.timestamp)}
+                </span>
+                <p>{comment.text}</p>
+                <EditDeleteComment comment={comment} postId={post._id} />
               </div>
             </div>
           </div>

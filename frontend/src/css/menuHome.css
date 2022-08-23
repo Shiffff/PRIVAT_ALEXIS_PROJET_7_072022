@@ -1,9 +1,65 @@
 .nav-container{
     display: flex;
-    justify-content: space-between; 
+    justify-content:center;
     height: 60px;
     border-bottom: 1px solid rgb(0, 0, 0);
 }
+
+
+.img-profile{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+.nameMenu{
+    display: inline;
+
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+    .nameMenu{
+    display: none;
+    }
+}
+
+
+
+
+
+.menuPicName{
+    position: absolute;
+    right: 65px;
+}
+@media screen and (max-width: 600px) {
+    .menuPicName{
+        position: sticky;
+    }
+}
+
+
+.deco{
+    font-size: 11px;
+    position: absolute;
+    right: 2px;
+    top: 40px;
+}@media screen and (max-width: 380px) {
+    .deco{
+        display: none;
+    }
+}
+
+
+
+
+
 
 .logosIcones{
     height: 45px;
@@ -11,8 +67,28 @@
     padding: 8px;
     margin: 0px;
     position: relative;
+}
+
+.nav-container .logo{
+    position: absolute;
+    left: 5px;
+}
+.logoIconeLogout {
+    position: absolute;
+    right: 9px;
+    width: 25px;
 
 }
+@media screen and (max-width: 380px) {
+    .logoIconeLogout{
+        position: sticky;
+    }
+}
+
+
+
+
+
 .activeLinkHome::after{
     content: "";
     background-color: lightcoral;
@@ -22,15 +98,4 @@
     border-radius: 60px;
     height: 5px;
     width: 60px;
-}
-.img-profile{
-    width: 45px;
-    height: 45px;
-    border-radius: 20px;
-    display: inline;
-
-
-}
-.nameMenu{
-    display: inline;
 }

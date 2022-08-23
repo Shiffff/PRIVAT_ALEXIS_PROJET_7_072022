@@ -14,9 +14,6 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from './feature/user.slice';
 import { setUsersData } from './feature/users.slice';
 import { setPostData } from './feature/post.slice';
-const urlUser = `http://localhost:3000/api/user/auth`;
-const urlUsers = `http://localhost:3000/api/user/users`;
-const urlPosts = `http://localhost:3000/api/post/posts`;
 
 
 
@@ -30,7 +27,7 @@ function App() {
     const fetchToken = async() => {
     await axios ({
       method: "get",
-      url: urlUser,
+      url: `${process.env.REACT_APP_API_ENDPOINT}/user/auth`,
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -44,7 +41,10 @@ function App() {
   const getallusers = async() => {
     await axios ({
 method: "get",
-url: urlUsers,
+url: `${process.env.REACT_APP_API_ENDPOINT}/user/users`,
+headers: {
+  'Authorization': 'Bearer ' + localStorage.getItem('token')
+}
 })
 .then((res) =>{
 dispatch(setUsersData(res.data));
@@ -56,7 +56,10 @@ dispatch(setUsersData(res.data));
 const getallposts = async() => {
   await axios ({
 method: "get",
-url: urlPosts,
+url: `${process.env.REACT_APP_API_ENDPOINT}/post/posts`,
+headers: {
+  'Authorization': 'Bearer ' + localStorage.getItem('token')
+}
 })
 .then((res) =>{
 dispatch(setPostData(res.data));

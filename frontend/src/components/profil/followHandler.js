@@ -14,7 +14,10 @@ const FollowHandler = ({ idToFollow, type }) => {
     const addFollow = () => {
          axios ({
     method: "put",
-    url: `http://localhost:3000/api/user/follow/${userData._id}`,
+    url: `${process.env.REACT_APP_API_ENDPOINT}/user/follow/${userData._id}`,
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    },
     data: { idToFollow }
     })
     .then((res) =>{
@@ -33,7 +36,10 @@ const FollowHandler = ({ idToFollow, type }) => {
     const addUnFollow = () => {
       axios ({
  method: "put",
- url: `http://localhost:3000/api/user/unfollow/${userData._id}`,
+ url: `${process.env.REACT_APP_API_ENDPOINT}/user/unfollow/${userData._id}`,
+ headers: {
+  'Authorization': 'Bearer ' + localStorage.getItem('token')
+},
  data: { idToFollow }
  })
  .then((res) =>{

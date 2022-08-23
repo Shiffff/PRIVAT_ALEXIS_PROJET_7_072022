@@ -28,15 +28,22 @@ const removeLocalStorage = () => {
                 </div>
                 <div className='Profil'>
                 <NavLink  to="/profil" className={({ isActive }) => (isActive ? "activeLinkHome" : undefined) }>
-                <div className='logo'>
+                <div className='logo-profil'>
                     <img className='logoIconeUser logosIcones'  src="../user.svg" alt='icon logout'></img>
                         </div>
                     </NavLink>
                 </div>
-                    <div className="nameMenu">Hello {userData.name} <img className='img-profile'src={userData.imageUrl} alt='icon'></img></div>
+                    <NavLink  to="/profil" >
+                    <div className="menuPicName">
+                    <div className="nameMenu">Hello {userData.firstName}</div>
+                    <img className='img-profile'src={userData.imageUrl} alt='icon'></img>
+                    </div>
+                    </NavLink>
+
                     <div className='userName'></div>
                     <div className='logout' onClick={removeLocalStorage}>
                     <NavLink  to="/connexion">
+                    <div className="deco">Déconnexion</div>
                     <img className='logoIconeLogout logosIcones'  src="../logout.svg" alt='icon logout'></img>
                     </NavLink>
                     </div>

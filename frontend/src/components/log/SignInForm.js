@@ -1,5 +1,4 @@
 import { useState } from 'react' ;
-const urlLoginUser = `http://localhost:3000/api/user/login`; 
 
 
 
@@ -40,7 +39,7 @@ export default function SignUpForm() {
                       "content-type": "application/json",
                     },
                   };
-                  fetch(urlLoginUser, options)        // récupération de la reponse de l'api (ID commande généré)
+                  fetch(`${process.env.REACT_APP_API_ENDPOINT}/user/login`, options)        // récupération de la reponse de l'api (ID commande généré)
                   .then((res) => {
                     if(res.status < 400){
                         res.json().then((data) => {console.log('data',data)

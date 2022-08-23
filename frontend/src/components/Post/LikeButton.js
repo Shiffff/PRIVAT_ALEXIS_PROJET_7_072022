@@ -14,7 +14,7 @@ const LikeButton = ({ post }) => {
     const like = () => {
         axios ({
    method: "put",
-   url: `http://localhost:3000/api/post/like/${post._id}`,
+   url: `${process.env.REACT_APP_API_ENDPOINT}/post/like/${post._id}`,
    data:  { id:userData._id } 
    })
    .then((res) =>{
@@ -30,7 +30,10 @@ const LikeButton = ({ post }) => {
     const unlike = () => {
         axios ({
             method: "put",
-            url: `http://localhost:3000/api/post/unlike/${post._id}`,
+            url: `${process.env.REACT_APP_API_ENDPOINT}/post/unlike/${post._id}`,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+              },      
             data:  { id:userData._id } 
             })
             .then((res) =>{

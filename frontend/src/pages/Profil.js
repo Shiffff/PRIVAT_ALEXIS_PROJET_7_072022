@@ -9,7 +9,6 @@ import { dateParser } from "../utils/utils";
 const Profil = () => {
   const dispatch = useDispatch();
   const [bio, setBio] = useState("");
-  const [setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.user.user);
   const usersData = useSelector((state) => state.users.users);
 
@@ -19,7 +18,10 @@ const Profil = () => {
   const handleDelete = () => {
     axios({
       method: "delete",
-      url: `http://localhost:3000/api/user/${userData._id}`,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      url: `${process.env.REACT_APP_API_ENDPOINT}/user/${userData._id}`,
     })
     .then((res) => {
       localStorage.clear();
@@ -32,11 +34,13 @@ const Profil = () => {
     e.preventDefault();
     axios({
       method: "put",
-      url: `http://localhost:3000/api/user/${userData._id}`,
+      url: `${process.env.REACT_APP_API_ENDPOINT}/user/${userData._id}`,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
       data: { bio },
     }).then(() => {
       dispatch(setUpdateBio(bio));
-      setUpdateForm(false);
     });
   };
   
@@ -46,7 +50,7 @@ const Profil = () => {
         <div className="update-container">
           <div className="left-part">
             <h6>
-              {userData.name} {userData.firstName}
+            {userData.firstName} {userData.name} 
             </h6>
     <h4>Membre depuis le {dateParser(userData.createdAt)}</h4>
             <img src={userData.imageUrl} alt="img de profil" />

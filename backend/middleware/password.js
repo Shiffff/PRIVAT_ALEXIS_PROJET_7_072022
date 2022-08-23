@@ -6,7 +6,7 @@ const passwordSchema = new passwordValid();
 passwordSchema
 .is().min(6)        // minimum 8
 .is().max(50)       // max 50
-.has().digits(2)    // 2 chiffres mini
+.has().digits(1)    // 2 chiffres mini
 .has().not().spaces()   // pas d'espace
 
 module.exports = (req, res, next) => {

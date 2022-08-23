@@ -10,8 +10,10 @@ const DeleteCard = (props) => {
     const deleteQuote = () => 
       axios ({
     method: "delete",
-    url:`http://localhost:3000/api/post/post/${props.id}`,
-
+    url:`${process.env.REACT_APP_API_ENDPOINT}/post/post/${props.id}`,
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    },
     })
     .then((res) =>{
       dispatch(deletePost(props.id));;

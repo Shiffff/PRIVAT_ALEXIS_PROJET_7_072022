@@ -16,7 +16,10 @@ const EditDeleteComment = ({ comment, postId }) => {
     if (text) {
       axios({
         method: "put",
-        url: `http://localhost:3000/api/post/comment/${postId}`,
+        url: `${process.env.REACT_APP_API_ENDPOINT}/post/comment/${postId}`,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         data: {
           commenterId: userData._id,
           commenterName: userData.name,
@@ -36,9 +39,14 @@ const EditDeleteComment = ({ comment, postId }) => {
   const handleDelete = () => {
     axios({
         method: "put",
-        url: `http://localhost:3000/api/post/deletecomment/${postId}`,
+        url: `${process.env.REACT_APP_API_ENDPOINT}/post/deletecomment/${postId}`,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         data: {
           commentid: comment._id,
+          commenterId: userData._id,
+          
         },
       })
         .then((res) => {
@@ -50,7 +58,7 @@ const EditDeleteComment = ({ comment, postId }) => {
 
   useEffect(() => {
     const checkAuthor = () => {
-      if (userData._id === comment.commenterId) {
+      if (userData._id === comment.commenterId || userData.isAdmin === true) {
         setIsAuthor(true);
       }
     };

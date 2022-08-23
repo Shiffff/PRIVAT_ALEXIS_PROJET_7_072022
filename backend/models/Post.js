@@ -11,6 +11,7 @@ const PostSchema = new mongoose.Schema(
         comments: {
             type: [{ commenterId: String,
                  commenterName: String,
+                 commenterFirstName: String,
                   text: String,
                    timestamp: Number }],
         },

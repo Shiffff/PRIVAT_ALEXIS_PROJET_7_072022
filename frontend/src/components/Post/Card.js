@@ -9,6 +9,7 @@ import DeleteCard from "../Post/DeleteCard";
 import CardComment from "./CardComment";
 
 const Card = ({ post }) => {
+  const [IsAuthor, setIsAuthor] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showComments, setShowComments] = useState(false);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -21,7 +22,10 @@ const Card = ({ post }) => {
     if (textUpdate) {
       axios({
         method: "put",
-        url: `http://localhost:3000/api/post/${post._id}`,
+        url: `${process.env.REACT_APP_API_ENDPOINT}/post/${post._id}`,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
         data: { message: textUpdate },
       })
         .then((res) => {
@@ -36,6 +40,15 @@ const Card = ({ post }) => {
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
   }, [usersData]);
+
+  useEffect(() => {
+    const checkAuthor = () => {
+      if (userData._id === post.posterId || userData.isAdmin === true) {
+        setIsAuthor(true);
+      }
+    };
+    checkAuthor();
+  }, [userData, post.posterId]);
 
   return (
     <li className="card-container" key={post._id}>
@@ -64,7 +77,8 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user._id === post.posterId) return user.name + (" ") + user.firstName;
+                        if (user._id === post.posterId)
+                          return user.firstName + " " + user.name;
                         else return null;
                       })
                       .join("")}
@@ -72,22 +86,20 @@ const Card = ({ post }) => {
                 {post.posterId !== userData._id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
-              {userData._id === post.posterId && (
-              <div className="button-container">
-                <div onClick={() => setIsUpdated(!isUpdated)}>
-                  <img
-                    className="unfollowPost"
-                    src="../edit.svg"
-                    alt="edit-logo"
-                  ></img>
-                </div>
-                <DeleteCard id={post._id} />
-              </div>
-            )}
+                {IsAuthor && (
+                  <div className="button-container">
+                    <div onClick={() => setIsUpdated(!isUpdated)}>
+                      <img
+                        className="unfollowPost"
+                        src="../edit.svg"
+                        alt="edit-logo"
+                      ></img>
+                    </div>
+                    <DeleteCard id={post._id} />
+                  </div>
+                )}
               </div>
               <span className="datePost">{dateParser(post.createdAt)}</span>
-
-
             </div>
             {isUpdated === false && <p>{post.message}</p>}
             {isUpdated && (
@@ -114,9 +126,9 @@ const Card = ({ post }) => {
                   className="comment-icon"
                   src="../comment.svg"
                   alt="comment"
-                  ></img>
+                ></img>
               </div>
-                <span>{post.comments.length}</span>
+              <span>{post.comments.length}</span>
               <LikeButton post={post} />
             </div>
             {showComments && <CardComment post={post} />}

@@ -24,6 +24,8 @@
     border-radius: 20px;
     padding: 30px;
     margin-top: 50px;
+    margin-bottom: 50px;
+
     }
 
 .update-container img{
@@ -229,7 +231,7 @@
     top: 10%;
     left: 50%;
     background: lightcoral;
-    padding: 25px;
+    padding: 5px 15px 5px 0px;
     border-radius: 10px;
     box-shadow: 0 0 2px rgba(131, 130, 130, 0.356);
     overflow: auto;

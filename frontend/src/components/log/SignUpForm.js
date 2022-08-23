@@ -1,5 +1,4 @@
 import { useState } from "react";
-const urlNewUser = `http://localhost:3000/api/user/signup`; // création d'une constante avec le lien du produit grace a l'ID récupéré
 export default function SignInForm() {
     const [user, setUser] = useState({
         name:'',
@@ -99,7 +98,7 @@ export default function SignInForm() {
                   "content-type": "application/json",
                 },
               };
-              fetch(urlNewUser, options)        // récupération de la reponse de l'api (ID commande généré)
+              fetch(`${process.env.REACT_APP_API_ENDPOINT}/user/signup`, options)        // récupération de la reponse de l'api (ID commande généré)
               .then((res) => {
                 if(res.status < 400){
                     document.querySelector('.errorMessageFetch').innerHTML = "<span style='color:green'>Inscription validée </br> veuillez vous connecter</span>"

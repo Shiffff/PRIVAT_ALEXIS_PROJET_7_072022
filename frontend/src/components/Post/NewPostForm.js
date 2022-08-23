@@ -11,7 +11,6 @@ const NewPostForm = () => {
   const [file, setFile] = useState();
   const userData = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const urlPosts = `http://localhost:3000/api/post/posts`;
 
   const handlePost = async () => {
     if (message || postPicture) {
@@ -22,13 +21,21 @@ const NewPostForm = () => {
 
       await axios({
         method: "post",
-        url: `http://localhost:3000/api/post/post/${userData._id}`,
+        url: `${process.env.REACT_APP_API_ENDPOINT}/post/post/${userData._id}`,
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+
         data: data,
       }).then((res) => {
         const getallposts = async () => {
           await axios({
             method: "get",
-            url: urlPosts,
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+    
+            url: `${process.env.REACT_APP_API_ENDPOINT}/post/posts`,
           })
             .then((res) => {
               dispatch(setPostData(res.data));
@@ -61,9 +68,9 @@ const NewPostForm = () => {
         <div className="data">
           <NavLink to="/profil">
             <div className="user-info">
-              <img src={userData.imageUrl} alt="photo de profil"></img>
+              <img src={userData.imageUrl} alt="pic de profil"></img>
               <h3>
-                {userData.name} {userData.firstName}
+                 {userData.firstName} {userData.name}
               </h3>
             </div>
           </NavLink>

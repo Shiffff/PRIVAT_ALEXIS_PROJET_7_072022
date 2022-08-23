@@ -18,7 +18,10 @@ const UploadImg = () => {
         data.append('image', file)
              axios({
                 method: "put",
-                url: `http://localhost:3000/api/user/${userData._id}`,
+                url: `${process.env.REACT_APP_API_ENDPOINT}/user/${userData._id}`,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                  },          
                 data: data
             })
             .then((res) => {

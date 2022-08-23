@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({            // Nouveau schema email + passwo
     bio:{type: String, default: "Ecrivez votre bio ici"},
     followers:{type:[String]},
     following:{type:[String]},
-    likes:{ type:[String]},
+    isAdmin: { type: Boolean, default:false}
 },
 {timestamps: true,}
 );
